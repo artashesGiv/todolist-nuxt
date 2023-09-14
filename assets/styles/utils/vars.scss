@@ -1,0 +1,11 @@
+// colors
+$brand: #006d77;
+$accent: #83c5be;
+$base: #ffddd2;
+
+//functions
+@function toRem($size) {
+    $remSize: calc($size / 12) * 1rem;
+
+    @return $remSize;
+}

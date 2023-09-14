@@ -1,0 +1,54 @@
+// expand
+//.expand {
+//    &-enter-active,
+//    &-leave-active {
+//        transition:
+//            height 0.3s ease 0.1s,
+//            opacity 0.3s ease-out 0.233s;
+//        opacity: 1;
+//        overflow: hidden;
+//    }
+//
+//    &-enter-from,
+//    &-leave-to {
+//        transition:
+//            height 0.3s ease,
+//            opacity 0.233s ease-out;
+//        opacity: 0;
+//        height: 0;
+//    }
+//}
+
+.expand-enter-active,
+.expand-leave-active {
+    transition: height 1s ease-in-out;
+    overflow: hidden;
+}
+
+.expand-enter-from,
+.expand-leave-to {
+    height: 0;
+}
+
+// fade
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+// transform left
+.transform-left-enter-active {
+    transition: all 0.3s ease-out;
+}
+.transform-left-leave-active {
+    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.transform-left-enter-from,
+.transform-left-leave-to {
+    transform: translateX(-100%);
+}
