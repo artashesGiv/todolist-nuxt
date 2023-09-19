@@ -1,25 +1,32 @@
 <template>
-    <h1>Todolist</h1>
-    <button @click="onClick">toggle</button>
-    <transition-expand>
-        <div v-if="toggle" class="test"></div>
-    </transition-expand>
-    <h2>test text</h2>
+    <section>
+        <h1>Todolist</h1>
+        <task-card v-bind="task" @completed="onCompleted" />
+    </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { TaskCardProps } from '~/components/task-card.vue'
 
-const toggle = ref(false)
-const onClick = () => {
-    toggle.value = !toggle.value
+const task = useState<TaskCardProps>(() => ({
+    id: 1,
+    title: 'Learn Javascipt',
+    isCompleted: false,
+    startDate: new Date(),
+}))
+const onCompleted = (id: TaskCardProps['id']) => {
+    task.value.isCompleted = !task.value.isCompleted
 }
+
+definePageMeta({
+    name: 'Dashboard',
+    position: 1,
+    icon: 'dashboard' as Icons,
+})
 </script>
 
 <style lang="scss">
-.test {
-    border: 1px solid #000;
-    height: 100px;
-    width: 100px;
+.btn {
+    margin-top: 20px;
 }
 </style>

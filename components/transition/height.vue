@@ -1,6 +1,6 @@
 <template>
     <transition
-        name="expand"
+        name="height"
         @enter="enter"
         @after-enter="afterEnter"
         @leave="leave"
@@ -11,36 +11,37 @@
 
 <script setup lang="ts">
 const enter = (element: HTMLElement) => {
-    element.style.width = getComputedStyle(element).width
+    const width = getComputedStyle(element).width
+    element.style.transition = 'none'
     element.style.position = 'absolute'
     element.style.visibility = 'hidden'
-    element.style.height = 'auto'
+    element.style.height = ''
+    element.style.width = width
 
     const height = getComputedStyle(element).height
 
-    element.style.width = ''
     element.style.position = ''
     element.style.visibility = ''
-    element.style.height = ''
+    element.style.width = ''
+    element.style.height = '0'
 
     getComputedStyle(element).height
 
     requestAnimationFrame(() => {
+        element.style.transition = ''
         element.style.height = height
     })
 }
 
 const afterEnter = (element: HTMLElement) => {
-    element.style.height = 'auto'
+    element.style.height = ''
 }
 
 const leave = (element: HTMLElement) => {
     element.style.height = getComputedStyle(element).height
 
-    getComputedStyle(element).height
-
     requestAnimationFrame(() => {
-        element.style.height = ''
+        element.style.height = '0'
     })
 }
 </script>

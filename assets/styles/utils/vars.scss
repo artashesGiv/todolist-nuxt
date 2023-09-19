@@ -1,7 +1,16 @@
+@import 'icons';
+
 // colors
 $brand: #006d77;
+$brandHover: lighten($brand, 8%);
 $accent: #83c5be;
 $base: #ffddd2;
+$baseHover: darken($base, 5%);
+$baseActive: darken($base, 5%);
+
+// fonts
+$icon: 'icon', sans-serif;
+$mainFontFamily: 'Inter', sans-serif;
 
 //functions
 @function toRem($size) {
@@ -9,3 +18,16 @@ $base: #ffddd2;
 
     @return $remSize;
 }
+
+@mixin iconsModify() {
+    @each $name, $glyph in $icons {
+        &_#{$name} {
+            &::before {
+                content: $glyph;
+            }
+        }
+    }
+}
+
+// other vars
+$header-height: toRem(70);

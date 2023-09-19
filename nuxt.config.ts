@@ -1,9 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-// import { defineNuxtConfig } from 'nuxt/config'
-
 export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ['@/node_modules/reset-css/reset.css', '@/assets/styles/common.scss'],
+
     vite: {
         css: {
             preprocessorOptions: {
@@ -14,4 +13,17 @@ export default defineNuxtConfig({
             },
         },
     },
+
+    app: {
+        head: {
+            title: 'Todolist',
+            meta: [{ name: 'description', content: 'Todoapp' }],
+        },
+        pageTransition: {
+            name: 'fade',
+            mode: 'out-in',
+        },
+    },
+
+    modules: ['@pinia/nuxt'],
 })
