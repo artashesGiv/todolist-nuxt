@@ -6,7 +6,7 @@
                 Start date: {{ startDate.toLocaleDateString('ru') }}
             </div>
             <div v-if="endDate" class="task-card__end-date">
-                {{ endDate }}
+                {{ endDate.toLocaleDateString('ru') }}
             </div>
             <div class="task-card__checkbox">
                 <ui-checkbox
@@ -21,6 +21,7 @@
         <div class="task-card__buttons">
             <ui-button
                 v-for="(button, index) in buttons"
+                is-only-icon
                 :key="index"
                 :icon="button.icon"
                 @click="button.onClick"

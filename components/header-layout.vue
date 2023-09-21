@@ -1,6 +1,6 @@
 <template>
     <header class="header">
-        <ui-burger-button v-model="isCollapsedMenu" />
+        <ui-burger-button v-model="modelValue" />
         <!-- search-->
         <!-- actions-->
     </header>
@@ -14,7 +14,7 @@ export type HeaderLayoutProps = {
 const props = defineProps<HeaderLayoutProps>()
 const emit = defineEmits(['update:modelValue'])
 
-const isCollapsedMenu = computed({
+const modelValue = computed({
     get: () => props.modelValue,
     set: value => emit('update:modelValue', value),
 })

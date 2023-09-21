@@ -5,34 +5,17 @@
 <script setup lang="ts">
 export type IconBaseProps = {
     name: Icons
-    size?: 's' | 'm' | 'l'
 }
 
-const { name, size } = withDefaults(defineProps<IconBaseProps>(), {
-    size: 's',
-})
+const { name } = defineProps<IconBaseProps>()
 
-const classes = computed(
-    () => `icon-base icon-base_${name} icon-base_size-${size}`,
-)
+const classes = computed(() => `icon-base icon-base_${name}`)
 </script>
 
 <style scoped lang="scss">
 .icon-base {
     display: inline-block;
     font-weight: 400;
-
-    &_size {
-        &-s {
-            font-size: toRem(16);
-        }
-        &-m {
-            font-size: toRem(20);
-        }
-        &-l {
-            font-size: toRem(35);
-        }
-    }
 
     &::before {
         font-family: $icon;

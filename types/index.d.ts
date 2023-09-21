@@ -2,7 +2,7 @@ declare global {
     type Maybe<T> = T | null | undefined
 
     type Task = {
-        id: number
+        id: number | string
         title: string
         description: Maybe<string>
         startDate: Date
@@ -20,6 +20,8 @@ declare global {
         | 'search'
         | 'theme'
         | 'trash'
+        | 'calendar'
+        | 'arrow_down'
 }
 
 declare module '#app' {

@@ -29,7 +29,6 @@ const isCollapsed = useState('isCollapsed', () => false)
     &__content {
         background-color: $base;
         flex-grow: 1;
-        padding: toRem(20);
     }
 }
 </style>

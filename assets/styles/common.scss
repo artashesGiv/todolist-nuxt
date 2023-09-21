@@ -54,23 +54,42 @@ a {
     color: inherit;
 }
 
-//input,
-//textarea {
-//    //appearance: none;
-//    font-family:
-//        $mainFontFamily,
-//        -apple-system,
-//        system-ui,
-//        BlinkMacSystemFont,
-//        'Helvetica',
-//        'Arial',
-//        'sans-serif';
-//    //display: block;
-//    //width: 100%;
-//    box-sizing: border-box;
-//    border: none;
-//}
+input,
+textarea {
+    appearance: none;
+    font-family:
+        $mainFontFamily,
+        -apple-system,
+        system-ui,
+        BlinkMacSystemFont,
+        'Helvetica',
+        'Arial',
+        'sans-serif';
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
 
 #__nuxt {
     height: 100%;
+}
+
+textarea {
+    &::-webkit-scrollbar {
+        width: toRem(4);
+        height: toRem(4);
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: $base;
+        border-radius: toRem(4);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $brand;
+        border-radius: toRem(4);
+    }
 }
