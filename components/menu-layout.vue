@@ -40,7 +40,7 @@ const routes = useRouter()
     width: toRem(210);
     flex-direction: column;
     align-items: center;
-    transition: width 0.3s ease;
+    @include transition(width);
     padding: 0 toRem(16);
     box-sizing: border-box;
 
@@ -70,7 +70,7 @@ const routes = useRouter()
         }
 
         &-text {
-            transition: color 0.3s ease;
+            @include transition(color);
             white-space: nowrap;
         }
 

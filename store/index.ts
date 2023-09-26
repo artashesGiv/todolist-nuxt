@@ -3,7 +3,7 @@ import { v4 } from 'uuid'
 export const useTodolistStore = defineStore('todolist', () => {
     const todolist = useState<Task[]>('todolist', () => [])
 
-    const addTask = (task: Omit<Task, 'id' | 'endDate'>) => {
+    const addTask = (task: TaskForEdit) => {
         todolist.value.push({
             id: v4(),
             endDate: null,

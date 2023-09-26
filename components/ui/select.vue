@@ -2,6 +2,7 @@
     <div class="select" :class="{ 'select_is-open': isOpen }">
         <field-decoraton
             :label="label"
+            :is-error="isError"
             class="select__field-wrapper"
             @click.stop="onClick"
         >
@@ -17,8 +18,11 @@
                 <button
                     v-for="option in options"
                     :key="option.id"
-                    class="select__option"
-                    @click="onSelect(option.id)"
+                    :class="[
+                        'select__option',
+                        { select__option_active: option.id === modelValue },
+                    ]"
+                    @click.prevent="onSelect(option.id)"
                 >
                     {{ option.text }}
                 </button>
@@ -30,24 +34,23 @@
 <script setup lang="ts">
 import { FieldDecorationProps } from '~/components/field-decoraton.vue'
 
-export type SelectOption = {
-    id: number | string
-    text: string
-}
-
 export type SelectProps = {
     modelValue: Maybe<SelectOption['id']>
+    placeholder?: string
     options: SelectOption[]
     label?: FieldDecorationProps['label']
+    isError?: boolean
 }
 
-const isOpen = useState('isOpen', () => false)
+const isOpen = ref(false)
 
 const props = defineProps<SelectProps>()
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'update:isError'])
 
 const getSelectOption = computed(() =>
-    props.options.find(item => item.id === props.modelValue),
+    props.modelValue === null
+        ? ''
+        : props.options.find(item => item.id === props.modelValue),
 )
 const optionsToggle = (value: boolean) => {
     isOpen.value = value
@@ -61,7 +64,8 @@ const onClose = () => {
 }
 
 const onSelect = (id: SelectOption['id']) => {
-    emit('update:modelValue', id)
+    emit('update:modelValue', id !== props.modelValue ? id : null)
+    emit('update:isError', false)
     onClose()
 }
 </script>
@@ -77,7 +81,8 @@ const onSelect = (id: SelectOption['id']) => {
     &:deep(.select__field-wrapper) {
         height: $heightField;
         cursor: pointer;
-        transition: border-color 0.3s ease;
+
+        @include transition(border-color);
 
         &:hover {
             color: $brandHover;
@@ -87,7 +92,6 @@ const onSelect = (id: SelectOption['id']) => {
 
     &__field {
         flex-grow: 1;
-        transition: color 0.3s ease;
     }
 
     &__icon {
@@ -122,9 +126,10 @@ const onSelect = (id: SelectOption['id']) => {
         border-radius: toRem(4);
         text-align: left;
         padding: toRem(5) toRem(10);
-        transition: border 0.3s ease;
         color: $brand;
+        @include transition(border-color);
 
+        &_active,
         &:hover {
             border-color: $brand;
         }

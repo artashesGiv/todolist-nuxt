@@ -22,6 +22,7 @@ body {
     -webkit-backface-visibility: hidden;
     -moz-osx-font-smoothing: grayscale;
     min-width: 320px;
+    overflow: hidden;
 }
 
 .button,
@@ -92,4 +93,11 @@ textarea {
         background-color: $brand;
         border-radius: toRem(4);
     }
+}
+
+.container {
+    //padding: 0 toRem(55);
+    width: 80%;
+    max-width: toRem(1200);
+    margin: 0 auto;
 }

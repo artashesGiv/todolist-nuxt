@@ -1,13 +1,18 @@
 <template>
     <div class="input" :class="{ 'input_is-multirow': isMultiRow }">
-        <field-decoraton class="input__wrapper" :label="label" :icon="getIcon">
+        <field-decoraton
+            :label="label"
+            :icon="getIcon"
+            :is-error="isError"
+            class="input__wrapper"
+        >
             <input
                 v-if="!isMultiRow"
                 :placeholder="placeholder"
                 :value="modelValue"
                 class="input__value"
                 type="text"
-                @input="$emit('update:modelValue', $event.target.value)"
+                @input="onInput"
             />
 
             <textarea
@@ -16,7 +21,7 @@
                 :value="modelValue"
                 class="input__value"
                 type="text"
-                @input="$emit('update:modelValue', $event.target.value)"
+                @input="onInput"
             />
         </field-decoraton>
     </div>
@@ -31,13 +36,20 @@ export type InputProps = {
     placeholder?: string
     isMultiRow?: boolean
     label?: FieldDecorationProps['label']
+    isError?: boolean
 }
 
 const props = defineProps<InputProps>()
+const emit = defineEmits(['update:isError', 'update:modelValue'])
 
 const getIcon = computed(() =>
     !props.isMultiRow && props.icon ? props.icon : undefined,
 )
+
+const onInput = (event: InputEvent) => {
+    emit('update:modelValue', (event.target as HTMLInputElement).value)
+    emit('update:isError', false)
+}
 </script>
 
 <style scoped lang="scss">

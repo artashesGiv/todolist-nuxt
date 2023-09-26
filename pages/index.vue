@@ -1,82 +1,12 @@
 <template>
-    <section>
-        <div class="list">
-            <task-card
-                v-for="task in store.todolist"
-                v-bind="task"
-                @delete="store.deleteTask"
-            />
-        </div>
-        <div class="qwe">
-            <ui-button view="brand" icon="arrow_down" @click="addTask"
-                >Add to list</ui-button
-            >
-            <ui-input
-                v-model="value"
-                class="input"
-                label="Label"
-                placeholder="placeholder"
-            />
-            <ui-input
-                v-model="value"
-                is-multi-row
-                class="input"
-                label="Label"
-                placeholder="placeholder"
-            />
-            <ui-input
-                v-model="value"
-                class="input"
-                icon="check-fill"
-                label="Label"
-                placeholder="placeholder"
-            />
-            <div>{{ value }}</div>
-            <ui-select
-                v-model="option"
-                :options="options"
-                class="input"
-                label="Label"
-                icon="calendar"
-            />
-            <div>{{ option }}</div>
-            <ui-datepicker
-                v-model="picked"
-                :min-date="new Date()"
-                class="input"
-                placeholder="End date"
-            />
-        </div>
+    <section class="dashboard-page container">
+        <task-form v-model="task" v-model:errors="errors" />
+        <ui-button view="brand" @click="validate">validate</ui-button>
     </section>
 </template>
 
 <script setup lang="ts">
-import { TaskCardProps } from '~/components/task-card.vue'
-import { useTodolistStore } from '~/store'
-import { SelectOption } from '~/components/ui/select.vue'
-
-const picked = ref(null)
-
-const value = ref('')
-const option = ref(1)
-const options: SelectOption[] = [
-    {
-        id: 1,
-        text: '1',
-    },
-    {
-        id: 2,
-        text: '2',
-    },
-    {
-        id: 3,
-        text: '3',
-    },
-    {
-        id: 4,
-        text: '4',
-    },
-]
+import { TaskFormProps } from '~/components/task-form.vue'
 
 definePageMeta({
     name: 'Dashboard',
@@ -84,26 +14,28 @@ definePageMeta({
     icon: 'dashboard' as Icons,
 })
 
-const store = useTodolistStore()
-
-const addTask = () => {
-    store.addTask({
-        title: 'Learn JavaScript',
-        isCompleted: false,
-        startDate: new Date(),
-        description: 'description',
+const errors = ref<TaskFormProps['errors']>([])
+const validate = () => {
+    Object.entries(task.value).forEach(([key, value]) => {
+        if (
+            !value &&
+            key !== 'description' &&
+            key !== 'isCompleted' &&
+            !errors.value.includes(key)
+        ) {
+            errors.value.push(key)
+        }
     })
 }
+
+const task = ref<TaskForEdit>({
+    title: 'Learn JavaScript',
+    startDate: new Date(),
+    description: 'description',
+    planeEndDate: new Date(),
+    priority: 1,
+    category: 1,
+})
 </script>
 
-<style lang="scss">
-.input {
-    width: 400px;
-}
-
-.qwe {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-</style>
+<style lang="scss"></style>

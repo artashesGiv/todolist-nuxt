@@ -1,6 +1,6 @@
 <template>
-    <section>
-        <h1>completed task</h1>
+    <section class="completed-task-page container">
+        <ui-page-title title="Completed Task" />
     </section>
 </template>
 

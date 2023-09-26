@@ -2,6 +2,7 @@
     <div class="datepicker">
         <field-decoraton
             :label="label"
+            :is-error="isError"
             class="datepicker__wrapper"
             icon="calendar"
             @click.stop="onClick"
@@ -22,6 +23,7 @@
                     :placeholder="placeholder"
                     :min-date="minDate"
                     :max-date="maxDate"
+                    @update:model-value="onUpdate"
                 />
             </article>
         </transition-fade>
@@ -37,17 +39,18 @@ export type DatepickerProps = {
     label?: string
     minDate?: Date
     maxDate?: Date
+    isError?: boolean
 }
 
 const props = defineProps<DatepickerProps>()
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'update:isError'])
 
 const modelValue = computed({
     get: () => props.modelValue,
     set: value => emit('update:modelValue', value),
 })
 
-const isShow = useState('is-show', () => false)
+const isShow = ref(false)
 
 const isShowToggle = (value: boolean) => {
     isShow.value = value
@@ -59,6 +62,10 @@ const onClose = () => {
 
 const onClick = () => {
     isShowToggle(!isShow.value)
+}
+
+const onUpdate = () => {
+    emit('update:isError', false)
 }
 
 const getValue = computed(() =>

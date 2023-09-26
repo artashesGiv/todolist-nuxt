@@ -1,6 +1,6 @@
 <template>
-    <section>
-        <h1>add-task</h1>
+    <section class="add-task-page container">
+        <ui-page-title title="Create your task" />
     </section>
 </template>
 

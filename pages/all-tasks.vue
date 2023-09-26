@@ -1,6 +1,6 @@
 <template>
-    <section>
-        <h1>all task</h1>
+    <section class="all-tasks-page container">
+        <ui-page-title title="Running Tasks" />
     </section>
 </template>
 

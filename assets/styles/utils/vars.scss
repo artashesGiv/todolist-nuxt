@@ -8,6 +8,8 @@ $accent: #83c5be;
 $base: #ffddd2;
 $baseHover: darken($base, 5%);
 $baseActive: darken($base, 5%);
+$white: #ffffff;
+$critical: #ed5e5eff;
 
 // fonts
 $icon: 'icon', sans-serif;
@@ -28,6 +30,10 @@ $mainFontFamily: 'Inter', sans-serif;
             }
         }
     }
+}
+
+@mixin transition($prop) {
+    transition: $prop 0.3s ease;
 }
 
 // other vars
